@@ -31,7 +31,7 @@
 
 ## 🎥 2. 결과물 영상 (Cinematic Video)
 
-> *아래 이미지를 클릭하면 유튜브에서 고화질로 시청할 수 있습니다. (YouTube)*
+> *아래 링크를 클릭하면 유튜브에서 고화질로 시청할 수 있습니다. (YouTube)*
 
 [유튜브에서 보기](https://www.youtube.com/watch?v=cAk8YH-7p0g)
 
