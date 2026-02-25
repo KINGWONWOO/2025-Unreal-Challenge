@@ -5,11 +5,20 @@
 > **"Unreal Engine 5 기반 실시간 시네마틱 영상 제작 프로젝트"**
 >
 > *Sequencer, Lighting, Animation, Rendering 파이프라인을 활용한 영상 연출 포트폴리오입니다. 메타휴먼 및 시네마틱 공부 실습 및 2026 언리얼 챌린지 제출용으로 제작하였습니다.*
-> > *제작을 위해 Udemy 강의인 "Unreal Engine 5 - Create Professional Cinematics & Trailers!"를 학습했습니다. 교육 수료증은 아래의 탭에서 확인 가능합니다.*
+
+ > *제작을 위해 **Udemy 강의인 "Unreal Engine 5 - Create Professional Cinematics & Trailers!"**과 **FastCampus 강의인 "한번에 끝내는 Unreal Engine 5 하이퀄리티 시네마틱 영상 제작"를 학습했습니다. 교육 수료증은 아래의 탭에서 확인 가능합니다.*
+> 
 <details>
-   <summary> 수료증 확인 </summary>
+   <summary> Udemy 수료증 확인 </summary>
    
    ![Verification](Doc/Images/Udemy_Cinematic.jpg)
+   
+</details>
+
+<details>
+   <summary> FastCampus 수료증 확인 </summary>
+   
+   ![Verification](Doc/Images/Fastcampus_cinematic.jpg)
    
 </details>
 
