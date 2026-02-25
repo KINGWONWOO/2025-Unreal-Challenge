@@ -244,18 +244,18 @@ https://github.com/user-attachments/assets/7e3ac1b8-cdb7-4e78-b4d8-aeabb02f6307
 
 ## 📚 5. 기술 문서 (Technical Docs)
 
-### 5.1 네트워크 아키텍처 (Network Architecture)
-* **Steam Online Subsystem 통합**: Steam SDK를 기반으로 세션 생성(CreateSession), 검색(FindSessions), 참여(JoinSession) 로직을 구현하여 별도의 IP 입력 없이도 매칭이 가능하도록 설계했습니다.
-* **State Management**: `ANoobGameStateBase`를 상속받은 각 게임 모드별 State(`MazeGameState`, `FruitGameState`)에서 게임 진행 상태(남은 시간, 점수, 단계)를 관리하며, `OnRep_` 함수를 통해 클라이언트 UI에 실시간으로 동기화합니다.
-* **Authority Logic**: Steam P2P 환경에서 발생할 수 있는 데이터 위변조를 방지하기 위해 모든 주요 판정(점수 획득, 승리 조건)은 서버(`HasAuthority`)에서 처리하도록 엄격히 분리했습니다.
+### 5.1 시네마틱 연출 및 라이팅 (Cinematic & Lighting)
+* **Dynamic Lighting System**: '빛과 그림자'라는 주제를 구현하기 위해 루멘(Lumen)을 활용한 실시간 글로벌 일루미네이션을 적용했습니다.
+* **Gobo Lighting 연출**: 새싹 및 덩굴의 그림자를 투영하기 위해 라이트 함수(Light Function)와 고보(Gobo) 텍스처를 활용하여, 단순한 어둠이 아닌 상징성을 가진 그림자 형태를 구현했습니다.
 
-### 5.2 캐릭터 시스템 및 애니메이션
-* **Modular Character Design**: `ANoobGameCharacter`를 베이스로 확장성을 고려해 각 미니게임에 맞는 캐릭터를 파생 설계했습니다.
-* **Retargeting Optimization**: 서로 다른 스켈레톤 구조를 가진 에셋 간의 애니메이션 호환성을 위해 IK Rig 및 IK Retargeter를 활용하여 본 매핑을 최적화했습니다.
+### 5.2 캐릭터 및 애니메이션 시스템 (Character & Animation)
+* **High-Fidelity MetaHuman Application**: 고해상도 메타휴먼을 주인공으로 채택하여, 실사에 가까운 피부 질감과 이목구비를 통해 모니터 빛에 드러나는 인물의 미세한 감정선을 극대화했습니다.
+* **Facial Tracking**: 메타휴먼에 언리얼의 자체 Face Tracking 기능을 이용하여, 캐릭터의 감정 표현을 제 얼굴로 직접 입력하였습니다.
+* **Retargeting Optimization**: 믹사모(Mixamo) 애니메이션 데이터를 메타휴먼 스켈레톤에 최적화하기 위해 IK Rig 및 IK Retargeter를 사용하여 본 매핑의 정확도를 높였습니다.
 
-### 5.3 데이터 관리 및 안정성
-* **Data-Driven Design**: 미니게임의 설정값(제한 시간, 목표 점수, 퀴즈 문항)을 `UDataTable`로 관리하여 코드 수정 없이 밸런싱이 가능한 구조를 구축했습니다.
-* **Version Control (Git LFS)**: Steam SDK 바이너리와 언리얼 엔진의 대용량 에셋(.uasset, .umap) 충돌 및 용량 관리를 위해 Git LFS를 운용하여 안정적인 협업 환경을 유지했습니다.
+### 5.3 카메라 및 시퀀서 (Camera & Sequencer)
+* **Cine Camera Rigging**: 주인공의 감정 변화를 극대화하기 위해 더치 앵글(Dutch Angle), 로우 앵글(Low Angle), 광각 렌즈(Wide-Angle) 등을 적재적소에 배치했으며, 시퀀서를 통해 정교한 카메라 궤적을 제어했습니다.
+* **Focus & Aperture Control**: 인물의 표정에서 특정 사물(사진 액자)로 초점이 이동하는 랙 포커스(Rack Focus) 기법과 얕은 피사체 심도(DOF)를 활용하여 관객의 시선을 유도했습니다.
 
 ---
 
@@ -282,26 +282,14 @@ https://github.com/user-attachments/assets/7e3ac1b8-cdb7-4e78-b4d8-aeabb02f6307
 
 ## 🐛 7. 트러블 슈팅 (Troubleshooting)
 
-### 이슈 1: 애니메이션 리타겟팅 시 메쉬 뭉개짐
-*   **문제**: 서로 다른 체형)의 캐릭터에 동일한 애니메이션을 적용할 때, 뼈대 구조 차이로 인해 메쉬가 비정상적으로 늘어나거나 뭉개지는 현상 발생.
-*   **해결**: `IK Rig`와 `IK Retargeter`를 정밀하게 설정하고, 특히 척추(Spine)와 다리(Leg) 본의 체인 매핑(Chain Mapping)을 각 캐릭터 비율에 맞춰 수동으로 보정. Blender를 통해 각 Bone의 Weight를 수정해서 정밀하게 추가 보정하여 해결.
+### 이슈 1: 메타휴먼 애니메이션 리타겟팅 이슈
+*   **문제**: 믹사모(Mixamo)에서 가져온 범용 애니메이션을 메타휴먼 스켈레톤에 적용했을 때, 어깨와 손가락 마디가 비정상적으로 뒤틀리거나 본(Bone)의 위치가 어긋나는 현상이 발생했습니다
+*   **해결**: 메타휴먼의 복잡한 본 구조와 믹사모의 표준 인간형 리깅 데이터 간의 기본 포즈(T-Pose vs A-Pose) 및 본 계층 구조 차이로 인한 문제임을 확인했습니다. 언리얼 엔진의 IK Rig와 IK Retargeter를 활용하여 소스(Mixamo)와 타겟(MetaHuman) 간의 본 체인을 수동으로 매핑했습니다. 특히 Full Body IK 설정을 통해 관절의 가동 범위를 제한하고, 이에도 에러가 발생할 시에는 리타겟 포즈를 세밀하게 조정하여 직접 구현했습니다.
 
 ### 이슈 2: 특정 행동(RPC)이 Host에게만 작동
-*   **문제**: 클라이언트가 상호작용 키를 눌렀을 때, `Server RPC`가 호출되지 않거나 반응이 없는 현상.
-*   **해결**: 해당 액터의 `Owner`가 플레이어 컨트롤러로 설정되지 않아 RPC 호출 권한이 없음을 확인. `SetOwner`를 통해 소유권을 명확히 하거나, 인터페이스를 통해 컨트롤러를 경유하여 RPC를 호출하는 방식으로 구조 개선.
-
-### 이슈 3: 과일 게임 Niagara/Animation 동기화 실패
-*   **문제**: 과일 획득 시 재생되는 파티클(Niagara)과 애니메이션이 Host 화면에서만 보이고 Client에서는 보이지 않음.
-*   **해결**: 이펙트 재생은 게임플레이에 영향을 주지 않는 시각적 요소이므로, 서버에서 `NetMulticast` 함수를 호출하여 연결된 모든 클라이언트에서 각각 이펙트를 재생하도록 변경.
-
-### 이슈 4: 퀴즈 게임 캐릭터 위치 끊김 (Jittering)
-*   **문제**: 움직이는 벽(Wall)에 캐릭터가 밀릴 때, 위치 동기화 보정(Correction)으로 인해 캐릭터가 심하게 떨리는 현상.
-*   **해결**: `CharacterMovementComponent`의 네트워크 보정 임계값을 조정하고, 벽의 이동 방식을 `SetActorLocation` 대신 물리 기반 이동이나 `InterpTo` 로직을 개선하여 서버/클라이언트 간 위치 오차를 최소화.
-
-### 이슈 5: 미로 게임 Goal Trigger 생성 오류
-*   **문제**: 절차적으로 생성된 미로에서 도착 지점(Goal Trigger)이 맵 밖이나 벽 속에 생성되어 게임 클리어가 불가능한 버그.
-*   **해결**: 미로 생성 알고리즘(`MazeGenerate.cpp`)에서 `PathEnd` 좌표 계산 로직을 디버깅하여, 그리드 인덱스와 월드 좌표 변환 과정의 오차를 수정하고 생성 후 `Overlapping` 체크를 추가하여 유효한 위치인지 검증하는 로직 추가.
+*   **문제**: 모니터의 강한 광원을 주 광원으로 사용할 때, 어두운 구석이나 캐릭터의 그림자 경계면에서 지저분한 노이즈와 잔상이 남는 고스팅(Ghosting) 현상이 나타났습니다.
+*   **해결**: Post Process Volume 내에서 Lumen Scene Detail과 Final Gather Quality 값을 상향 조정하고, 강한 주 광원에는 Virtual Shadow Maps를 활성화하여 그림자의 경계를 날카롭고 선명하게 개선했습니다.
 
 ---
 
-*Contact: Wonwoo*
+*Contact: (강원우/king_wonwoo@naver.com)*
